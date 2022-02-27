@@ -42,4 +42,14 @@ export const connectors = {
   injected: new InjectedConnector({ supportedChainIds: supportedChainIds() }),
 };
 
+export enum ConnectorNames {
+  Injected = 'Injected',
+  WalletConnect = 'WalletConnect',
+}
+
+export const connectorsByName: any = {
+  [ConnectorNames.Injected]: connectors.injected,
+  [ConnectorNames.WalletConnect]: null
+}
+
 export default connectors

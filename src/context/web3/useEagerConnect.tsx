@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import config from "../../config";
 import { useWeb3React } from "@web3-react/core";
+import connectors from "./connectors";
 
-const { connectors } = config;
 
 export function useEagerConnect() {
   const { active, activate } = useWeb3React();
