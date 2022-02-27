@@ -1,19 +1,35 @@
-const config = {
-  connection: {
-    walletconnectId: process.env.REACT_APP_WALLET_CONNECT_INFURA_ID,
-    local: {
-      url: process.env.REACT_APP_LOCAL_PROVIDER_URL,
-      developmentDelay: process.env.REACT_APP_DEVELOPMENT_TX_WAIT_MS,
-    },
-    fallbackChainId: process.env.REACT_APP_FALLBACK_CHAIN_ID,
-    supportedChainIds: process.env.REACT_APP_SUPPORTED_CHAIN_IDS,
-    contractAddresses: process.env.REACT_APP_CONTRACT_ADDRESSES,
-    providerKeys: {
-      infuraId: process.env.REACT_APP_INFURA_API_KEY,
-      alchemyId: process.env.REACT_APP_ALCHEMY_API_KEY,
-      etherscanId: process.env.REACT_APP_ETHERSCAN_API_KEY,
-    },
-  },
+enum Environment {
+  Production = 'production',
+  Staging = 'staging',
+  Development = 'development',
+  Test = 'test'
+}
+
+function choose(configObj: any) {
+  return configObj[process.env.NODE_ENV];
+}
+
+export const environmentalConfigs = {
+  providerApiKeys: {
+    infura: choose({
+      [Environment.Test]: '',
+      [Environment.Development]: '',
+      [Environment.Staging]: '',
+      [Environment.Production]: '',
+    }),
+    etherscan: choose({
+      [Environment.Test]: '',
+      [Environment.Development]: '',
+      [Environment.Staging]: '',
+      [Environment.Production]: '',
+    }),
+    alchemy: choose({
+      [Environment.Test]: '',
+      [Environment.Development]: '',
+      [Environment.Staging]: '',
+      [Environment.Production]: '',
+    })
+  }
 };
 
-export default config
+export default environmentalConfigs
