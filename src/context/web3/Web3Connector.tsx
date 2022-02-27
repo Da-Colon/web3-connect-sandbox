@@ -5,7 +5,7 @@ import useInactiveListener from "./useInactiveListeners";
 import Web3ConnectorModal from "./Web3ConnectorModal";
 
 // @todo this adds options for modal
-const createWeb3Root = (context: React.Context<{}>) => {
+const createWeb3Root = (context: React.Context<any>) => {
   const Web3Root = ({ children }: { children: React.ReactNode }) => {
     const { connector } = useWeb3React();
     const [activatingConnector, setActivatingConnector] = useState<any>();
@@ -23,7 +23,13 @@ const createWeb3Root = (context: React.Context<{}>) => {
     useInactiveListener(!triedEager || !!activatingConnector);
 
     return (
-      <context.Provider value={{}}>
+      <context.Provider
+        value={{
+          triedEager,
+          activatingConnector,
+          setActivatingConnector,
+        }}
+      >
         <Web3ConnectorModal showModal={true} />
         {children}
       </context.Provider>
@@ -33,7 +39,7 @@ const createWeb3Root = (context: React.Context<{}>) => {
   return Web3Root;
 };
 
-const web3Context = createContext({});
+const web3Context = createContext<any>({});
 
 const Web3Connector = createWeb3Root(web3Context);
 

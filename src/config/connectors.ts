@@ -32,7 +32,6 @@ const supportedChainIds = () => {
     ...dev,
     ...(process.env.REACT_APP_SUPPORTED_CHAIN_IDS || "").split(",").map((i) => parseInt(i, 10)),
   ];
-  console.log("🚀 ~ file: connectors.ts ~ line 35 ~ supported", supported)
   return supported;
 };
 
