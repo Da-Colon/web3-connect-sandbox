@@ -4,7 +4,6 @@ import { Web3Connector } from "./Web3Connector";
 
 /**
  * Web3Wrapper
- * @todo Wrapper that adds web3-react provider context to app
  * @returns
  */
 const Web3Wrapper = ({ children }: { children: JSX.Element }) => {

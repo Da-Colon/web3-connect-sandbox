@@ -25,5 +25,11 @@ export function useEagerConnect() {
     }
   }, [tried, active]);
 
+  useEffect(() => {
+    if(!active && tried) {
+      activate(connectors.fallback)
+    }
+  }, [tried, active])
+
   return tried;
 }

@@ -1,35 +1,28 @@
 enum Environment {
-  Production = 'production',
-  Staging = 'staging',
-  Development = 'development',
-  Test = 'test'
+  Production = "production",
+  Staging = "staging",
+  Development = "development",
+  Test = "test",
 }
 
 function choose(configObj: any) {
   return configObj[process.env.NODE_ENV];
 }
 
-export const environmentalConfigs = {
-  providerApiKeys: {
-    infura: choose({
-      [Environment.Test]: '',
-      [Environment.Development]: '',
-      [Environment.Staging]: '',
-      [Environment.Production]: '',
-    }),
-    etherscan: choose({
-      [Environment.Test]: '',
-      [Environment.Development]: '',
-      [Environment.Staging]: '',
-      [Environment.Production]: '',
-    }),
-    alchemy: choose({
-      [Environment.Test]: '',
-      [Environment.Development]: '',
-      [Environment.Staging]: '',
-      [Environment.Production]: '',
-    })
-  }
+const INFURA_RPCS = {
+  1: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`,
+  4: `https://rinkeby.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`,
 };
 
-export default environmentalConfigs
+export const environmentalConfigs = {
+  fallbackRPCs: {
+    infura: choose({
+      [Environment.Test]: INFURA_RPCS,
+      [Environment.Development]: INFURA_RPCS,
+      [Environment.Staging]: INFURA_RPCS,
+      [Environment.Production]: INFURA_RPCS,
+    }),
+  },
+};
+
+export default environmentalConfigs;
