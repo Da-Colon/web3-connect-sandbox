@@ -51,7 +51,7 @@ const Web3ConnectorModal: FC<Web3ConnectorModalProps> = ({ showModal }) => {
         hidden: !show,
       })}
     >
-      <div className="border-2 p-4 w-80 bg-black border-decent h-min flex flex-col">
+      <div className="border-2 p-4 w-96 bg-black border-decent h-min flex flex-col rounded-md">
         <DecentLogo />
         <WalletOptions />
       </div>

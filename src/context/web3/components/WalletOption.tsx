@@ -8,29 +8,37 @@ interface WalletOptionProps {
   name: string;
 }
 const WalletOption: FC<WalletOptionProps> = ({ name }) => {
-  const { connector, error, activate } = useWeb3React();
+  const { connector, error, activate, deactivate } = useWeb3React();
   const { triedEager, activatingConnector, setActivatingConnector } = useWeb3Connect();
 
+  const isFallback = name === ConnectorNames.Fallback;
   const currentConnector = connectorsByName[name];
   const connected = currentConnector === connector;
-  const disabled = !triedEager || !!activatingConnector || connected || !!error;
+  const disabled = !triedEager || !!activatingConnector || connected || !!error || (isFallback && connected);
 
-  const isFallback = name === ConnectorNames.Fallback;
-  return (
-    <ConnectorButton
-      isDisabled={disabled || isFallback}
-      isLoading={currentConnector === activatingConnector}
-      isFallback={isFallback}
-      isConnected={connected}
-      action={() => {
-        setActivatingConnector(currentConnector);
+
+  const action = () => {
+    if(isFallback) {
+      deactivate()
+    } else {
+      setActivatingConnector(currentConnector);
         activate(connectorsByName[name], (error) => {
           if (error) {
             setActivatingConnector(undefined);
           }
         });
-      }}
-      label={name}
+    }
+  }
+  const label = isFallback && !connected ? 'Deactivate' : name
+
+  return (
+    <ConnectorButton
+      isDisabled={disabled}
+      isLoading={currentConnector === activatingConnector}
+      isFallback={isFallback}
+      isConnected={connected}
+      action={action}
+      label={label}
     />
   );
 };

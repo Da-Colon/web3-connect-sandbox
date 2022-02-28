@@ -9,7 +9,7 @@ import config from "../../config";
 // const POLLING_INTERVAL = 12000
 export enum ConnectorNames {
   Injected = 'Metamask',
-  Fallback = 'Mainnet',
+  Fallback = 'Not Connected',
 }
 /**
  * 

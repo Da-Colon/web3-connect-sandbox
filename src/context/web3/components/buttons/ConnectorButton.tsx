@@ -11,10 +11,12 @@ export interface ConnectorButtonProps {
 }
 
 const clickedAnimation = "focus:translate-y-2 focus:translate-x-2";
+
 const baseStyles = "h-12 my-2 rounded-2xl tracking-wide relative uppercase";
+const isConnectedStyles = "cursor-default decent-gradient text-black rounded-2xl"
 const disabledStyles = "cursor-default";
 const activeStyles = "cursor-pointer decent-gradient text-black rounded-2xl";
-const fallbackStyles = "bg-gray-400 text-gray-600";
+const fallbackStyles = "bg-red-900 text-white";
 
 const ConnectorButton: FC<ConnectorButtonProps> = ({
   label,
@@ -49,14 +51,16 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
       <></>
     );
   const Loading = () => (isLoading ? <div>Loading...</div> : <></>);
-  const buttonStyles = cx(
+
+  const buttonClassNames = cx(
     baseStyles,
     {
-      [clickedAnimation]: clicked,
+      [clickedAnimation]: clicked && !isDisabled,
     },
     {
-      [disabledStyles]: isDisabled,
-      [activeStyles]: !isDisabled,
+      [disabledStyles]: isDisabled && !isConnected,
+      [isConnectedStyles]: isDisabled && isConnected,
+      [activeStyles]: !isDisabled && !isFallback,
     },
     {
       [fallbackStyles]: isFallback,
@@ -64,7 +68,7 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
   );
 
   return (
-    <button className={buttonStyles} onClick={buttonClick}>
+    <button className={buttonClassNames} onClick={buttonClick}>
       <div className={cx("absolute top-0 left-0 h-full flex items-center ml-4")}>
         <Loading />
         <ActiveIcon />
