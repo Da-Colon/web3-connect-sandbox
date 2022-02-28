@@ -14,22 +14,23 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
   const isFallback = name === ConnectorNames.Fallback;
   const currentConnector = connectorsByName[name];
   const connected = currentConnector === connector;
-  const disabled = !triedEager || !!activatingConnector || connected || !!error || (isFallback && connected);
-
+  const disabled = !triedEager || !!activatingConnector || connected || !!error;
 
   const action = () => {
-    if(isFallback) {
-      deactivate()
+    if (isFallback && !connected) {
+      deactivate();
+    } else if (isFallback) {
+      return null;
     } else {
       setActivatingConnector(currentConnector);
-        activate(connectorsByName[name], (error) => {
-          if (error) {
-            setActivatingConnector(undefined);
-          }
-        });
+      activate(connectorsByName[name], (error) => {
+        if (error) {
+          setActivatingConnector(undefined);
+        }
+      });
     }
-  }
-  const label = isFallback && !connected ? 'Deactivate' : name
+  };
+  const label = isFallback && !connected ? "Deactivate" : isFallback ? "Not Connected" : name;
 
   return (
     <ConnectorButton

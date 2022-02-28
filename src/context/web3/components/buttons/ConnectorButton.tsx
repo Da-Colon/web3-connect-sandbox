@@ -13,10 +13,11 @@ export interface ConnectorButtonProps {
 const clickedAnimation = "focus:translate-y-2 focus:translate-x-2";
 
 const baseStyles = "h-12 my-2 rounded-2xl tracking-wide relative uppercase";
-const isConnectedStyles = "cursor-default decent-gradient text-black rounded-2xl"
+const isConnectedStyles = "cursor-default decent-gradient text-black rounded-2xl";
 const disabledStyles = "cursor-default";
 const activeStyles = "cursor-pointer decent-gradient text-black rounded-2xl";
-const fallbackStyles = "bg-red-900 text-white";
+const fallbackActiveStyles = "bg-red-900 text-white";
+const fallbackStyles = "bg-gray-700 text-gray-500 cursor-default"
 
 const ConnectorButton: FC<ConnectorButtonProps> = ({
   label,
@@ -59,11 +60,12 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
     },
     {
       [disabledStyles]: isDisabled && !isConnected,
-      [isConnectedStyles]: isDisabled && isConnected,
-      [activeStyles]: !isDisabled && !isFallback,
+      [isConnectedStyles]: isDisabled && !isFallback && isConnected,
     },
+    { [activeStyles]: !isDisabled && !isFallback },
     {
-      [fallbackStyles]: isFallback,
+      [fallbackActiveStyles]: isFallback && !isConnected,
+      [fallbackStyles]: isFallback && isConnected,
     }
   );
 
