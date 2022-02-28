@@ -5,7 +5,6 @@ export interface ConnectorButtonProps {
   label: string;
   isDisabled: boolean;
   action: () => void;
-  isFallback: boolean;
   isConnected: boolean;
   isLoading?: boolean;
 }
@@ -16,14 +15,11 @@ const baseStyles = "h-12 my-2 rounded-2xl tracking-wide relative uppercase";
 const isConnectedStyles = "cursor-default decent-gradient text-black rounded-2xl";
 const disabledStyles = "cursor-default";
 const activeStyles = "cursor-pointer decent-gradient text-black rounded-2xl";
-const fallbackActiveStyles = "bg-red-900 text-white";
-const fallbackStyles = "bg-gray-700 text-gray-500 cursor-default"
 
 const ConnectorButton: FC<ConnectorButtonProps> = ({
   label,
   action,
   isDisabled,
-  isFallback,
   isConnected,
   isLoading,
 }) => {
@@ -60,13 +56,9 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
     },
     {
       [disabledStyles]: isDisabled && !isConnected,
-      [isConnectedStyles]: isDisabled && !isFallback && isConnected,
+      [isConnectedStyles]: isDisabled && isConnected,
     },
-    { [activeStyles]: !isDisabled && !isFallback },
-    {
-      [fallbackActiveStyles]: isFallback && !isConnected,
-      [fallbackStyles]: isFallback && isConnected,
-    }
+    { [activeStyles]: !isDisabled }
   );
 
   return (

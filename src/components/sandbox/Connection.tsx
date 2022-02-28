@@ -6,10 +6,10 @@ import { SectionWithTitle } from "../layout/Section";
 const Connection = () => {
   return (
     <SectionWithTitle title="connection">
-      <Fragment>
-        <ConnectButton />
+      <div className="flex justify-between">
         <AccountDisplay />
-      </Fragment>
+        <ConnectButton />
+      </div>
     </SectionWithTitle>
   );
 };

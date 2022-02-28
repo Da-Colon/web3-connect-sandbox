@@ -1,11 +1,33 @@
+import { useWeb3React } from "@web3-react/core";
+import { getConnectorName } from "../../context/web3/connectors";
+import cx from 'classnames'
+
+const NOT_CONNECTED = 'Not Connected'
+const Container = ({children}: {children: JSX.Element[]}) => <div className="flex justify-between gap-12">{children}</div>
+const Label = ({label}: {label: string}) => <div>{label}</div>;
+const Value = ({value}: {value: string}) => <div className={cx('px-2', {'bg-red-700': value === NOT_CONNECTED})}>{value}</div>;
 
 const AccountDisplay = () => {
+  const web3 = useWeb3React();
+  const connectedName = getConnectorName(web3.connector);
   return (
     <div>
-      {/* <div>
-        <p>0x0000000000000000000000000000</p>
-        <Button label="disconnect" action={() => null} />
-      </div> */}
+      <Container>
+        <Label label="account:" />
+        <Value value={web3.account || NOT_CONNECTED} />
+      </Container>
+      <Container>
+        <Label label="active node:" />
+        <Value value={web3.active ? "true" : NOT_CONNECTED} />
+      </Container>
+      <Container>
+        <Label label="chain id:" />
+        <Value value={web3.chainId?.toString() || NOT_CONNECTED} />
+      </Container>
+      <Container>
+        <Label label="connection:" />
+        <Value value={connectedName || NOT_CONNECTED} />
+      </Container>
     </div>
   );
 };

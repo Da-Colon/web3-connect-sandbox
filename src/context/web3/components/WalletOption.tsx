@@ -30,16 +30,14 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
       });
     }
   };
-  const label = isFallback && !connected ? "Deactivate" : isFallback ? "Not Connected" : name;
 
   return (
     <ConnectorButton
       isDisabled={disabled}
       isLoading={currentConnector === activatingConnector}
-      isFallback={isFallback}
       isConnected={connected}
       action={action}
-      label={label}
+      label={name}
     />
   );
 };

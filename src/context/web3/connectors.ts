@@ -25,18 +25,30 @@ export const supportedChainIds = () => {
   return supported;
 };
 
+export const getConnectorName = (connector: any) => {
+  switch(connector) {
+    case connectors.fallback: {
+      return ConnectorNames.Fallback
+    }
+    case connectors.injected: {
+      return ConnectorNames.Injected
+    }
+    default:
+      return 'Unknown'
+  }
+}
+
 /**
  * object containing connect class instances
  * @todo add local RPC Connector
  */
-export const connectors: any = {
+const connectors: any = {
   injected: new InjectedConnector({ supportedChainIds: supportedChainIds() }),
   fallback: new NetworkConnector({
     urls: config.fallbackRPCs.infura,
     defaultChainId: parseInt(process.env.REACT_APP_FALLBACK_CHAIN_ID || "1", 10)
   })
 };
-
 export const connectorsByName: any = {
   [ConnectorNames.Injected]: connectors.injected,
   [ConnectorNames.Fallback]: connectors.fallback
