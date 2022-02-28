@@ -4,7 +4,7 @@ import connectors from "./connectors";
 
 
 export function useEagerConnect() {
-  const { active, activate } = useWeb3React();
+  const { active, activate, account } = useWeb3React();
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
@@ -26,10 +26,10 @@ export function useEagerConnect() {
   }, [tried, active]);
 
   useEffect(() => {
-    if(!active && tried) {
+    if(!account) {
       activate(connectors.fallback)
     }
-  }, [tried, active])
+  }, [account])
 
   return tried;
 }

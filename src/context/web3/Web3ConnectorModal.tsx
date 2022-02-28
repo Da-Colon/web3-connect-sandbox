@@ -13,8 +13,12 @@ interface Web3ConnectorModalProps {
   showModal: boolean;
 }
 
-
-function getErrorMessage(error: Error) {
+/**
+ * @todo add toast messages for errors
+ * @param error 
+ * @returns 
+ */
+const getErrorMessage = (error: Error) => {
   if (error instanceof NoEthereumProviderError) {
     return "No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.";
   } else if (error instanceof UnsupportedChainIdError) {

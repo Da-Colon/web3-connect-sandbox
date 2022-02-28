@@ -5,3 +5,6 @@
 html {
   @apply bg-gray-900 text-white;
 }
+.decent-gradient {
+  background: linear-gradient(113deg,#ac54ff 18%,#d7b5f7)
+}
