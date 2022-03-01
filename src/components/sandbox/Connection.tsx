@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import ConnectButton from "../buttons/connect";
 import AccountDisplay from "../layout/AccountDisplay";
 import { SectionWithTitle } from "../layout/Section";

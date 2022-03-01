@@ -15,8 +15,11 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
   const currentConnector = connectorsByName[name];
   const connected = currentConnector === connector;
   const disabled = !triedEager || !!activatingConnector || connected || !!error;
-
+  
   const action = () => {
+    if(disabled) {
+      return null
+    }
     if (isFallback && !connected) {
       deactivate();
     } else if (isFallback) {
@@ -25,6 +28,7 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
       setActivatingConnector(currentConnector);
       activate(connectorsByName[name], (error) => {
         if (error) {
+          console.log("🚀 ~ file: WalletOption.tsx ~ line 32 ~ error", error)
           setActivatingConnector(undefined);
         }
       });

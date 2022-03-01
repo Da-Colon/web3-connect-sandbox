@@ -1,5 +1,6 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { NetworkConnector } from '@web3-react/network-connector'
+import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import config from "../../config";
 // import { PortisConnector } from '@web3-react/portis-connector'
 // import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
@@ -9,6 +10,7 @@ import config from "../../config";
 // const POLLING_INTERVAL = 12000
 export enum ConnectorNames {
   Injected = 'Metamask',
+  WalletConnect = 'WalletConnect',
   Fallback = 'Fallback',
 }
 /**
@@ -33,6 +35,9 @@ export const getConnectorName = (connector: any) => {
     case connectors.injected: {
       return ConnectorNames.Injected
     }
+    case connectors.injected: {
+      return ConnectorNames.WalletConnect
+    }
     default:
       return 'Unknown'
   }
@@ -42,15 +47,22 @@ export const getConnectorName = (connector: any) => {
  * object containing connect class instances
  * @todo add local RPC Connector
  */
-const connectors: any = {
+const connectors: {[connector: string]: any} = {
   injected: new InjectedConnector({ supportedChainIds: supportedChainIds() }),
   fallback: new NetworkConnector({
     urls: config.fallbackRPCs.infura,
     defaultChainId: parseInt(process.env.REACT_APP_FALLBACK_CHAIN_ID || "1", 10)
+  }),
+  walletconnect: new WalletConnectConnector({
+    rpc: config.fallbackRPCs.infura,
+    chainId: 1,
+    bridge: 'https://bridge.walletconnect.org',
+    qrcode: true
   })
 };
 export const connectorsByName: any = {
   [ConnectorNames.Injected]: connectors.injected,
+  [ConnectorNames.WalletConnect]: connectors.walletconnect,
   [ConnectorNames.Fallback]: connectors.fallback
 }
 
