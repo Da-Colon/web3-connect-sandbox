@@ -1,7 +1,7 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { NetworkConnector } from '@web3-react/network-connector'
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
-import config from "../../config";
+import config from "../config";
 // import { PortisConnector } from '@web3-react/portis-connector'
 
 

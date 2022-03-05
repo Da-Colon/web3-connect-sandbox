@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { useWeb3Connect } from "../../context/web3/Web3Connector";
 import Button from "./button";
 import { ConnectButtonProps } from "./interfaces";
 import { useWeb3React } from '@web3-react/core';
+import { useWeb3Connect } from "../../context/web3/hooks/useWeb3Provider";
 
 const ConnectButton: FC<ConnectButtonProps> = () => {
   const { account, deactivate } = useWeb3React();

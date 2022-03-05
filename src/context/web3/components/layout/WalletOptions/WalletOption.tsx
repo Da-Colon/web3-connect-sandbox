@@ -1,8 +1,8 @@
 import { useWeb3React } from "@web3-react/core";
 import { FC } from "react";
-import { ConnectorNames, connectorsByName } from "../connectors";
-import { useWeb3Connect } from "../Web3Connector";
-import ConnectorButton from "./buttons/ConnectorButton";
+import { ConnectorNames, connectorsByName } from "../../../config/connectors";
+import { useWeb3Connect } from "../../../hooks/useWeb3Provider";
+import ConnectorButton from "../../ui/buttons/ConnectorButton";
 
 interface WalletOptionProps {
   name: string;

@@ -1,4 +1,4 @@
-import { connectorsByName, ConnectorNames } from "../connectors";
+import { ConnectorNames, connectorsByName } from "../../../config/connectors";
 import WalletOption from "./WalletOption";
 
 const WalletOptions = () => {

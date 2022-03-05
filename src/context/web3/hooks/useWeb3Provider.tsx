@@ -1,8 +1,8 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import Web3ConnectorModal from "../components/layout/Web3ConnectorModal";
 import { useEagerConnect } from "./useEagerConnect";
 import useInactiveListener from "./useInactiveListeners";
-import Web3ConnectorModal from "./Web3ConnectorModal";
 
 // @todo this adds options for modal
 const createWeb3Root = (context: React.Context<any>) => {

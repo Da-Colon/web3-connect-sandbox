@@ -1,6 +1,6 @@
 import { useWeb3React } from "@web3-react/core";
-import { getConnectorName } from "../../context/web3/connectors";
 import cx from 'classnames'
+import { getConnectorName } from "../../context/web3/config/connectors";
 
 const NOT_CONNECTED = 'Not Connected'
 const Container = ({children}: {children: JSX.Element[]}) => <div className="flex justify-between gap-12">{children}</div>

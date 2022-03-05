@@ -1,9 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import cx from "classnames";
-import DecentLogo from "./assets/DecentLogo";
-
-import WalletOptions from "./components/WalletOptions";
-
+import DecentLogo from "../../../assets/DecentLogo";
+import WalletOptions from "../WalletOptions";
 
 interface Web3ConnectorModalProps {
   showModal: boolean;
