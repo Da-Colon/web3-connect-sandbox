@@ -13,30 +13,29 @@ const Web3ConnectorModal: FC<Web3ConnectorModalProps> = ({ showModal, closeWeb3M
 
   const overlayRef = useRef<HTMLHeadingElement>(null);
 
-
   useEffect(() => {
     if (!show && showModal) {
-      setTimeout(() => setShow(true), 250);
+      setTimeout(() => setShow(true));
     }
     if (show && !showModal) {
-      setTimeout(() => setShow(false), 250)
+      setTimeout(() => setShow(false));
     }
   }, [showModal]);
 
   return (
     <div
-      className={cx("absolute h-full w-full bg-overlay z-10 top-0", {
+      className={cx("absolute flex flex-col items-center justify-center h-full w-full bg-overlay z-10 top-0", {
         "flex justify-end": show,
         hidden: !show,
       })}
       onClick={(e) => {
-        if(e.target === overlayRef.current) {
-          closeWeb3Modal()
+        if (e.target === overlayRef.current) {
+          closeWeb3Modal();
         }
       }}
       ref={overlayRef}
     >
-      <div className="border-2 p-4 w-96 bg-black border-decent h-min flex flex-col rounded-md" >
+      <div className="border-2 p-4 w-96 bg-black border-decent h-min flex flex-col rounded-md">
         <DecentLogo />
         <WalletOptions />
       </div>
