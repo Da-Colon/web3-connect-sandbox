@@ -3,6 +3,7 @@ import cx from "classnames";
 
 export interface ConnectorButtonProps {
   label: string;
+  logo: string;
   isDisabled: boolean;
   action: () => void;
   isConnected: boolean;
@@ -17,6 +18,7 @@ const disabledStyles = "cursor-default";
 
 const ConnectorButton: FC<ConnectorButtonProps> = ({
   label,
+  logo,
   action,
   isDisabled,
   isConnected,

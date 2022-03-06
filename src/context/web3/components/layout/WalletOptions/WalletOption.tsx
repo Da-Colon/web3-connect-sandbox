@@ -2,7 +2,6 @@ import { FC } from "react";
 import { ConnectorNames } from "../../../hooks/useConnectors";
 import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
 import ConnectorButton from "../../ui/buttons/ConnectorButton";
-
 interface WalletOptionProps {
   name: string;
 }
@@ -18,7 +17,7 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
   } = useWeb3Provider();
 
   const isFallback = name === ConnectorNames.Fallback;
-  const currentConnector = connectorsByName[name];
+  const currentConnector = connectorsByName[name].connector;
   const connected = currentConnector === connector;
   const disabled = !triedEager || !!activatingConnector || connected || !!error;
 
@@ -37,6 +36,7 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
 
   return (
     <ConnectorButton
+      logo={""}
       isDisabled={disabled}
       isLoading={currentConnector === activatingConnector}
       isConnected={connected}
