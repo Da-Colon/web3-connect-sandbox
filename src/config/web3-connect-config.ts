@@ -6,7 +6,7 @@
  * @note default fallback network will be first network in object
  * @todo update to handle multiple fallback in points
  */
-module.exports = {
+export const web3Config = {
   supportedNetworkIds: "1,4",
   fallbackRPCEndpoints: {
     "1": `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_API_KEY}`,

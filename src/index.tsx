@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Web3Wrapper from "./context/web3/Web3Wrapper";
-import web3Config from "./web3-connect-config";
+import { web3Config } from "./config/web3-connect-config";
 
 ReactDOM.render(
   <React.StrictMode>
