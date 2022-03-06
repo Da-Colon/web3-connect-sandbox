@@ -12,7 +12,8 @@ export interface ConnectorButtonProps {
 
 const clickedAnimation = "focus:translate-y-2 focus:translate-x-2";
 
-const baseStyles = "h-12 my-2 rounded-2xl tracking-wide relative uppercase cursor-pointer decent-gradient text-black rounded-2xl";
+const baseStyles =
+  "h-12 my-2 rounded-2xl tracking-wide relative uppercase cursor-pointer decent-gradient text-black rounded-2xl";
 const isConnectedStyles = "cursor-default decent-gradient text-black rounded-2xl";
 const disabledStyles = "cursor-default";
 
@@ -58,13 +59,15 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
     {
       [disabledStyles]: isDisabled && !isConnected,
       [isConnectedStyles]: isDisabled && isConnected,
-    },
+    }
   );
 
   return (
     <button className={buttonClassNames} onClick={buttonClick}>
+      <div className="absolute h-8 w-8 top-2 left-4">
+        <img src={logo} alt="" className="h-full w-full"/>
+      </div>
       <div className={cx("absolute top-0 left-0 h-full flex items-center ml-4")}>
-        <Loading />
         <ActiveIcon />
       </div>
       <Label />

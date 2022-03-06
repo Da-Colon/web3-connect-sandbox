@@ -17,8 +17,8 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
   } = useWeb3Provider();
 
   const isFallback = name === ConnectorNames.Fallback;
-  const currentConnector = connectorsByName[name].connector;
-  const connected = currentConnector === connector;
+  const currentConnection = connectorsByName[name];
+  const connected = currentConnection.connector === connector;
   const disabled = !triedEager || !!activatingConnector || connected || !!error;
 
   const action = () => {
@@ -36,9 +36,9 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
 
   return (
     <ConnectorButton
-      logo={""}
+      logo={currentConnection.logo}
       isDisabled={disabled}
-      isLoading={currentConnector === activatingConnector}
+      isLoading={currentConnection.connector === activatingConnector}
       isConnected={connected}
       action={action}
       label={name}

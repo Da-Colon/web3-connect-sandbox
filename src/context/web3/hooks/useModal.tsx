@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useModal = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   const openWeb3Modal = () => {
     setShowModal(true);
