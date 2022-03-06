@@ -17,11 +17,17 @@ import useModal from "./useModal";
 const createWeb3Root = (context: React.Context<any>) => {
   const Web3Root = ({ config, children }: { config: Web3Config; children: JSX.Element }) => {
     // handles ui logic for modal
-    const { activatingConnector, showModal, setActivatingConnector, openWeb3Modal, closeWeb3Modal } =
-      useModal();
-    // handles connectors
-    const { connectors, connectorsByName, getConnectorName } = useConnectors(config);
-    // handles logic to check project config `web3-connect-config.js'
+    const { showModal, openWeb3Modal, closeWeb3Modal } = useModal();
+
+    // handles connectors logic checking project config `web3-connect-config.js'
+    const {
+      connectors,
+      connectorsByName,
+      getConnectorName,
+      activatingConnector,
+      setActivatingConnector,
+      activateConnector,
+    } = useConnectors(config);
 
     // handles logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
     const triedEager = useEagerConnect(connectors);
@@ -39,6 +45,7 @@ const createWeb3Root = (context: React.Context<any>) => {
           connectors,
           connectorsByName,
           getConnectorName,
+          activateConnector,
           ...useWeb3React(),
         }}
       >

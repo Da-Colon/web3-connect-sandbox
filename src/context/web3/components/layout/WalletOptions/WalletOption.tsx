@@ -9,10 +9,9 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
   const {
     connector,
     error,
-    activate,
     triedEager,
     activatingConnector,
-    setActivatingConnector,
+    activateConnector,
     deactivate,
     connectorsByName,
   } = useWeb3Provider();
@@ -31,13 +30,7 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
     } else if (isFallback) {
       return null;
     } else {
-      setActivatingConnector(currentConnector);
-      activate(connectorsByName[name], (error: any) => {
-        if (error) {
-          console.log("🚀 ~ file: WalletOption.tsx ~ line 32 ~ error", error);
-          setActivatingConnector(undefined);
-        }
-      });
+      activateConnector(name);
     }
   };
 
