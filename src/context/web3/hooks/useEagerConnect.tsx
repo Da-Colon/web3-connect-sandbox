@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
+import { ConnectorNames } from "./useConnectors";
 
 
-export function useEagerConnect(connectors: any) {
-  const { active, activate, account } = useWeb3React();
+export function useEagerConnect(connectors: any, activateConnector: (_connectorName: string) => Promise<void>) {
+  const { active, account } = useWeb3React();
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
     connectors.injected.isAuthorized().then((isAuthorized: boolean) => {
       if (isAuthorized) {
-        activate(connectors.injected, undefined, true).catch(() => {
+        activateConnector(ConnectorNames.Injected).catch(() => {
           setTried(true);
         });
       } else {
@@ -26,7 +27,7 @@ export function useEagerConnect(connectors: any) {
 
   useEffect(() => {
     if(!account) {
-      activate(connectors.fallback)
+      activateConnector(ConnectorNames.Fallback)
     }
   }, [account])
 

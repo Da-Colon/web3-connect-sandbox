@@ -20,28 +20,28 @@ const createWeb3Root = (context: React.Context<any>) => {
     const {
       connectors,
       connectorsByName,
-      getConnectorName,
       activatingConnector,
+      selectedConnector,
       setActivatingConnector,
       activateConnector,
     } = useConnectors(config);
 
     // handles logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-    const triedEager = useEagerConnect(connectors);
+    const triedEager = useEagerConnect(connectors, activateConnector);
 
     // handles logic to connect in reaction to certain events on the injected ethereum provider, if it exists
-    useInactiveListener(!triedEager || !!activatingConnector, connectors);
+    useInactiveListener(!triedEager || !!activatingConnector, activateConnector);
 
     return (
       <context.Provider
         value={{
           triedEager,
           activatingConnector,
+          selectedConnector,
           setActivatingConnector,
           openWeb3Modal,
           connectors,
           connectorsByName,
-          getConnectorName,
           activateConnector,
           ...useWeb3React(),
         }}

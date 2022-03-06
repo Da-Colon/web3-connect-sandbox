@@ -1,7 +1,8 @@
 import { FC } from "react";
+import { ConnectorNames } from "../../../hooks/useConnectors";
 import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
 import ConnectorButton from "../../ui/buttons/ConnectorButton";
-import { ConnectorNames } from "../../../types/index.d";
+
 interface WalletOptionProps {
   name: string;
 }

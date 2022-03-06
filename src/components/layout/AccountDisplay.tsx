@@ -8,7 +8,7 @@ const Value = ({value}: {value: string}) => <div className={cx('px-2', {'bg-red-
 
 const AccountDisplay = () => {
   const web3 = useWeb3Provider();
-  const connectedName = web3.getConnectorName(web3.connector);
+  const connectedName = web3.selectedConnector;
   return (
     <div>
       <Container>

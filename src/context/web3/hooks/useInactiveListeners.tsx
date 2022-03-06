@@ -1,8 +1,11 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect } from "react";
+import { ConnectorNames } from "./useConnectors";
 
-
-const useInactiveListener = (suppress: boolean = false, connectors: any) => {
+const useInactiveListener = (
+  suppress: boolean = false,
+  activateConnector: (_connectorName: string) => Promise<void>
+) => {
   const { active, activate, error } = useWeb3React();
 
   useEffect((): any => {
@@ -10,21 +13,21 @@ const useInactiveListener = (suppress: boolean = false, connectors: any) => {
     if (ethereum && ethereum.on && !active && !error && !suppress) {
       const handleConnect = () => {
         console.log("Handling 'connect' event");
-        activate(connectors.injected);
+        activateConnector(ConnectorNames.Injected);
       };
       const handleChainChanged = (chainId: string | number) => {
         console.log("Handling 'chainChanged' event with payload", chainId);
-        activate(connectors.injected);
+        activateConnector(ConnectorNames.Injected);
       };
       const handleAccountsChanged = (accounts: string[]) => {
         console.log("Handling 'accountsChanged' event with payload", accounts);
         if (accounts.length > 0) {
-          activate(connectors.injected);
+          activateConnector(ConnectorNames.Injected);
         }
       };
       const handleNetworkChanged = (networkId: string | number) => {
         console.log("Handling 'networkChanged' event with payload", networkId);
-        activate(connectors.injected);
+        activateConnector(ConnectorNames.Injected);
       };
 
       ethereum.on("connect", handleConnect);

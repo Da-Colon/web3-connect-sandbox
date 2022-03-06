@@ -1,6 +1,6 @@
 import WalletOption from "./WalletOption";
 import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
-import { ConnectorNames } from "../../../types/index.d";
+import { ConnectorNames } from "../../../hooks/useConnectors";
 
 const WalletOptions = () => {
   const { connectorsByName } = useWeb3Provider();
