@@ -1,6 +1,6 @@
-import { useWeb3React } from "@web3-react/core";
 import cx from 'classnames'
 import { getConnectorName } from "../../context/web3/config/connectors";
+import { useWeb3Provider } from '../../context/web3/hooks/useWeb3Provider';
 
 const NOT_CONNECTED = 'Not Connected'
 const Container = ({children}: {children: JSX.Element[]}) => <div className="flex justify-between gap-12">{children}</div>
@@ -8,7 +8,7 @@ const Label = ({label}: {label: string}) => <div>{label}</div>;
 const Value = ({value}: {value: string}) => <div className={cx('px-2', {'bg-red-700': value === NOT_CONNECTED})}>{value}</div>;
 
 const AccountDisplay = () => {
-  const web3 = useWeb3React();
+  const web3 = useWeb3Provider();
   const connectedName = getConnectorName(web3.connector);
   return (
     <div>

@@ -5,13 +5,15 @@ import {
 } from "@web3-react/injected-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from "@web3-react/walletconnect-connector";
 import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
+import path from "path";
+import fs from "fs";
 
 /**
  * @todo add toast messages for errors
- * @param error 
- * @returns 
+ * @param error
+ * @returns
  */
- export const getErrorMessage = (error: Error) => {
+export const getErrorMessage = (error: Error) => {
   if (error instanceof NoEthereumProviderError) {
     return "No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.";
   } else if (error instanceof UnsupportedChainIdError) {
@@ -26,4 +28,5 @@ import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3
     console.error(error);
     return "An unknown error occurred. Check the console for more details.";
   }
-}
+};
+

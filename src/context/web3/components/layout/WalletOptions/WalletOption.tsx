@@ -1,15 +1,13 @@
-import { useWeb3React } from "@web3-react/core";
 import { FC } from "react";
 import { ConnectorNames, connectorsByName } from "../../../config/connectors";
-import { useWeb3Connect } from "../../../hooks/useWeb3Provider";
+import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
 import ConnectorButton from "../../ui/buttons/ConnectorButton";
 
 interface WalletOptionProps {
   name: string;
 }
 const WalletOption: FC<WalletOptionProps> = ({ name }) => {
-  const { connector, error, activate, deactivate } = useWeb3React();
-  const { triedEager, activatingConnector, setActivatingConnector } = useWeb3Connect();
+  const { connector, error, activate, triedEager, activatingConnector, setActivatingConnector, deactivate } = useWeb3Provider();
 
   const isFallback = name === ConnectorNames.Fallback;
   const currentConnector = connectorsByName[name];
@@ -26,7 +24,7 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
       return null;
     } else {
       setActivatingConnector(currentConnector);
-      activate(connectorsByName[name], (error) => {
+      activate(connectorsByName[name], (error: any) => {
         if (error) {
           console.log("🚀 ~ file: WalletOption.tsx ~ line 32 ~ error", error)
           setActivatingConnector(undefined);
