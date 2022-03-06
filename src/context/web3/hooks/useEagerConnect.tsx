@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
-import connectors from "../config/connectors";
 
 
-export function useEagerConnect() {
+export function useEagerConnect(connectors: any) {
   const { active, activate, account } = useWeb3React();
   const [tried, setTried] = useState(false);
 

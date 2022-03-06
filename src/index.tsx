@@ -4,10 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Web3Wrapper from "./context/web3/Web3Wrapper";
+import web3Config from "./web3-connect-config";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Web3Wrapper>
+    <Web3Wrapper config={web3Config}>
       <App />
     </Web3Wrapper>
   </React.StrictMode>,

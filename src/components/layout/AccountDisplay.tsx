@@ -1,5 +1,4 @@
 import cx from 'classnames'
-import { getConnectorName } from "../../context/web3/config/connectors";
 import { useWeb3Provider } from '../../context/web3/hooks/useWeb3Provider';
 
 const NOT_CONNECTED = 'Not Connected'
@@ -9,7 +8,7 @@ const Value = ({value}: {value: string}) => <div className={cx('px-2', {'bg-red-
 
 const AccountDisplay = () => {
   const web3 = useWeb3Provider();
-  const connectedName = getConnectorName(web3.connector);
+  const connectedName = web3.getConnectorName(web3.connector);
   return (
     <div>
       <Container>
