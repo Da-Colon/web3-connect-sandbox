@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext } from "react";
 import type { Web3Config } from "../types";
 import Web3ConnectorModal from "../components/layout/Web3ConnectorModal";
 import useConnectors from "./useConnectors";
@@ -7,12 +7,9 @@ import { useEagerConnect } from "./useEagerConnect";
 import useInactiveListener from "./useInactiveListeners";
 import useModal from "./useModal";
 
-// @todo this adds options for modal
-// @todo if config file present init provider wrapper
-// @todo if file is not present, handle no fallback? ethers? connect to injector to
 // @todo show toast message
-// @todo should extend useWeb3Provider hook.
 // @todo should check for custom css file
+// @todo configure useWeb3Provider to return only what is needed
 
 const createWeb3Root = (context: React.Context<any>) => {
   const Web3Root = ({ config, children }: { config: Web3Config; children: JSX.Element }) => {
