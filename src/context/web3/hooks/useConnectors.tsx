@@ -19,8 +19,40 @@ export interface Connector {
 }
 
 const useConnectors = (config?: Web3Config) => {
+  const supportedChainIds = config ? config.supportedNetworkIds.split(",").map((i) => parseInt(i, 10)) : [1];
+
   const { activate, connector } = useWeb3React();
-  const [selectedConnector, setSelectedConnector] = useState<Connector>();
+
+  const defaultConnectors = {
+    [ConnectorNames.Injected]: {
+      connector: new InjectedConnector({ supportedChainIds: supportedChainIds }),
+      name: ConnectorNames.Injected,
+      logo: metamaskLogo,
+    },
+    [ConnectorNames.WalletConnect]: {
+      connector: new WalletConnectConnector({
+        rpc: config!.walletConnectRPCEndpoints,
+        chainId: 1,
+        bridge: "https://bridge.walletconnect.org",
+        qrcode: true,
+      }),
+      name: ConnectorNames.WalletConnect,
+      logo: walletconnectLogo,
+    },
+    [ConnectorNames.Fallback]: {
+      connector: new NetworkConnector({
+        urls: config!.fallbackRPCEndpoints,
+        defaultChainId: parseInt(process.env.REACT_APP_FALLBACK_CHAIN_ID || "1", 10),
+      }),
+      name: ConnectorNames.Fallback,
+      logo: "",
+    },
+  };
+
+  const [connectors, setConnectors] = useState<Map<string, Connector>>(
+    new Map(Object.entries(defaultConnectors))
+  );
+  const [activeConnector, setActiveConnector] = useState<Connector>();
 
   // connector currently activating
   const [activatingConnector, setActivatingConnector] = useState<Connector>();
@@ -28,9 +60,12 @@ const useConnectors = (config?: Web3Config) => {
   useEffect(() => {
     if (activatingConnector) {
       if (activatingConnector.connector === connector) {
-        setSelectedConnector(activatingConnector);
-        setActivatingConnector(undefined);
+        const _connectors = new Map(connectors);
+        _connectors.set(activatingConnector.name, activatingConnector);
+        setActiveConnector(activatingConnector);
+        setConnectors(_connectors);
       }
+      setActivatingConnector(undefined);
     }
   }, [activatingConnector, connector]);
 
@@ -40,53 +75,10 @@ const useConnectors = (config?: Web3Config) => {
     }
   });
 
-  const supportedChainIds = config ? config.supportedNetworkIds.split(",").map((i) => parseInt(i, 10)) : [1];
-
-  const connectors: { [connector: string]: any } = {
-    injected: new InjectedConnector({ supportedChainIds: supportedChainIds }),
-
-    fallback: new NetworkConnector({
-      urls: config!.fallbackRPCEndpoints,
-      defaultChainId: parseInt(process.env.REACT_APP_FALLBACK_CHAIN_ID || "1", 10),
-    }),
-
-    walletconnect: new WalletConnectConnector({
-      rpc: config!.walletConnectRPCEndpoints,
-      chainId: 1,
-      bridge: "https://bridge.walletconnect.org",
-      qrcode: true,
-    }),
-  };
-
-  const getLogoByName: any = {
-    [ConnectorNames.Injected]: metamaskLogo,
-    [ConnectorNames.WalletConnect]: walletconnectLogo,
-    [ConnectorNames.Fallback]: "", // no logo
-  };
-
-  const connectorsByName: { [key: string]: Connector } = {
-    [ConnectorNames.Injected]: {
-      connector: connectors.injected,
-      name: ConnectorNames.Injected,
-      logo: getLogoByName[ConnectorNames.Injected],
-    },
-    [ConnectorNames.WalletConnect]: {
-      connector: connectors.walletconnect,
-      name: ConnectorNames.WalletConnect,
-      logo: getLogoByName[ConnectorNames.WalletConnect],
-    },
-    [ConnectorNames.Fallback]: {
-      connector: connectors.fallback,
-      name: ConnectorNames.Fallback,
-      logo: getLogoByName[ConnectorNames.Fallback],
-    },
-  };
-
   const activateConnector = async (_connectorName: string) => {
-    const connection = connectorsByName[_connectorName];
-    setActivatingConnector(connection);
-    activate(
-      connection.connector,
+    const connection = connectors.get(_connectorName);
+    await activate(
+      connection?.connector,
       (error: any) => {
         if (error) {
           setActivatingConnector(undefined);
@@ -94,15 +86,13 @@ const useConnectors = (config?: Web3Config) => {
       },
       true
     );
+    setActivatingConnector(connection);
   };
 
   return {
     connectors,
-    connectorsByName,
     activatingConnector,
-    selectedConnector,
-    getLogoByName,
-    setActivatingConnector,
+    activeConnector,
     activateConnector,
   };
 };

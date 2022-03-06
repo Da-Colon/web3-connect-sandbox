@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import cx from "classnames";
+import { DotsLoader, LoaderSize } from "../loaders/DotsLoader";
 
 export interface ConnectorButtonProps {
   label: string;
@@ -43,13 +44,12 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
   const Label = () => <div>{label}</div>;
   const ActiveIcon = () =>
     isConnected ? (
-      <span role="img" aria-label="check">
+      <span role="img" aria-label="check" className="">
         ✅
       </span>
     ) : (
       <></>
     );
-  const Loading = () => (isLoading ? <div>Loading...</div> : <></>);
 
   const buttonClassNames = cx(
     baseStyles,
@@ -64,13 +64,19 @@ const ConnectorButton: FC<ConnectorButtonProps> = ({
 
   return (
     <button className={buttonClassNames} onClick={buttonClick}>
-      <div className="absolute h-8 w-8 top-2 left-4">
-        <img src={logo} alt="" className="h-full w-full"/>
-      </div>
-      <div className={cx("absolute top-0 left-0 h-full flex items-center ml-4")}>
-        <ActiveIcon />
-      </div>
-      <Label />
+      {isLoading ? (
+        <DotsLoader size={LoaderSize.button} />
+      ) : (
+        <>
+          <div className="absolute h-8 w-8 top-2 left-4">
+            <img src={logo} alt="" className="h-full w-full" />
+          </div>
+          <div className={cx("absolute top-0 right-5 h-full flex items-center ml-4")}>
+            {isConnected && <ActiveIcon />}
+          </div>
+          <Label />
+        </>
+      )}
     </button>
   );
 };

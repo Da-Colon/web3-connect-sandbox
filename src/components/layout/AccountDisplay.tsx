@@ -11,8 +11,7 @@ const Value = ({ value }: { value: string }) => (
 );
 
 const AccountDisplay = () => {
-  const { account, active, chainId, selectedConnector } = useWeb3Provider();
-  const connectedName = selectedConnector?.name;
+  const { account, active, chainId, activeConnector } = useWeb3Provider();
   return (
     <div>
       <Container>
@@ -29,7 +28,7 @@ const AccountDisplay = () => {
       </Container>
       <Container>
         <Label label="connection:" />
-        <Value value={connectedName || NOT_CONNECTED} />
+        <Value value={activeConnector?.name || NOT_CONNECTED} />
       </Container>
     </div>
   );

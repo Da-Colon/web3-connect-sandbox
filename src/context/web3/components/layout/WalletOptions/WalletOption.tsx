@@ -1,25 +1,20 @@
 import { FC } from "react";
-import { ConnectorNames } from "../../../hooks/useConnectors";
+import { Connector, ConnectorNames } from "../../../hooks/useConnectors";
 import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
 import ConnectorButton from "../../ui/buttons/ConnectorButton";
 interface WalletOptionProps {
-  name: string;
+  connectorOption: Connector;
 }
-const WalletOption: FC<WalletOptionProps> = ({ name }) => {
-  const {
-    connector,
-    error,
-    triedEager,
-    activatingConnector,
-    activateConnector,
-    deactivate,
-    connectorsByName,
-  } = useWeb3Provider();
+const WalletOption: FC<WalletOptionProps> = ({ connectorOption }) => {
+  const { connector, error, triedEager, activatingConnector, activateConnector, deactivate } =
+    useWeb3Provider();
 
-  const isFallback = name === ConnectorNames.Fallback;
-  const currentConnection = connectorsByName[name];
-  const connected = currentConnection.connector === connector;
-  const disabled = !triedEager || !!activatingConnector || connected || !!error;
+  const isFallback = connectorOption.name === ConnectorNames.Fallback;
+
+  const connected = connectorOption?.connector === connector;
+  const isLoading = connectorOption?.connector === activatingConnector?.connector;
+  
+  const disabled = !triedEager || !!activatingConnector || connected || !!error || isLoading;
 
   const action = () => {
     if (disabled) {
@@ -30,18 +25,18 @@ const WalletOption: FC<WalletOptionProps> = ({ name }) => {
     } else if (isFallback) {
       return null;
     } else {
-      activateConnector(name);
+      activateConnector(connectorOption?.name);
     }
   };
 
   return (
     <ConnectorButton
-      logo={currentConnection.logo}
+      logo={connectorOption?.logo}
       isDisabled={disabled}
-      isLoading={currentConnection.connector === activatingConnector}
+      isLoading={isLoading}
       isConnected={connected}
       action={action}
-      label={name}
+      label={connectorOption.name}
     />
   );
 };

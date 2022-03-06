@@ -8,7 +8,7 @@ export function useEagerConnect(connectors: any, activateConnector: (_connectorN
   const [tried, setTried] = useState(false);
 
   useEffect(() => {
-    connectors.injected.isAuthorized().then((isAuthorized: boolean) => {
+    connectors.get(ConnectorNames.Injected).connector.isAuthorized().then((isAuthorized: boolean) => {
       if (isAuthorized) {
         activateConnector(ConnectorNames.Injected).catch(() => {
           setTried(true);
@@ -26,7 +26,7 @@ export function useEagerConnect(connectors: any, activateConnector: (_connectorN
   }, [tried, active]);
 
   useEffect(() => {
-    if(!account) {
+    if(!account && tried) {
       activateConnector(ConnectorNames.Fallback)
     }
   }, [account])
