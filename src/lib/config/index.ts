@@ -1,3 +1,4 @@
 import environmentalConfigs from "./environment";
 
-export default { ...environmentalConfigs };
+const config = { ...environmentalConfigs }
+export default config;
