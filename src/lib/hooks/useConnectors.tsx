@@ -21,7 +21,7 @@ export interface Connector {
 const useConnectors = (config?: Web3Config) => {
   const supportedChainIds = config ? config.supportedNetworkIds.split(",").map((i) => parseInt(i, 10)) : [1];
 
-  const { activate, connector } = useWeb3React();
+  const { activate, connector, deactivate } = useWeb3React();
 
   const defaultConnectors = {
     [ConnectorNames.Injected]: {
@@ -49,7 +49,7 @@ const useConnectors = (config?: Web3Config) => {
     },
   };
 
-  const [connectors, setConnectors] = useState<Map<string, Connector>>(
+  const [connectors] = useState<Map<string, Connector>>(
     new Map(Object.entries(defaultConnectors))
   );
   const [activeConnector, setActiveConnector] = useState<Connector>();
@@ -60,23 +60,24 @@ const useConnectors = (config?: Web3Config) => {
   useEffect(() => {
     if (activatingConnector) {
       if (activatingConnector.connector === connector) {
-        const _connectors = new Map(connectors);
-        _connectors.set(activatingConnector.name, activatingConnector);
         setActiveConnector(activatingConnector);
-        setConnectors(_connectors);
       }
       setActivatingConnector(undefined);
     }
-  }, [activatingConnector, connector]);
+  }, [activatingConnector, connector, connectors]);
 
   useEffect(() => {
     if (!config) {
-      throw "Missing Config File";
+      throw new Error("Missing Config File");
     }
   });
 
   const activateConnector = async (_connectorName: string) => {
+  console.log("🚀 ~ file: useConnectors.tsx ~ line 76 ~ _connectorName", _connectorName)
     const connection = connectors.get(_connectorName);
+    if(!connection) {
+      throw new Error("Connection Not Found")
+    }
     await activate(
       connection?.connector,
       (error: any) => {
@@ -89,11 +90,17 @@ const useConnectors = (config?: Web3Config) => {
     setActivatingConnector(connection);
   };
 
+  const deactivateConnector = () => {
+    setActiveConnector(undefined)
+    deactivate()
+  }
+
   return {
     connectors,
     activatingConnector,
     activeConnector,
     activateConnector,
+    deactivateConnector,
   };
 };
 

@@ -31,7 +31,7 @@ const Web3ConnectorModal: FC<Web3ConnectorModalProps> = ({ showModal, closeWeb3M
     if (isShown && !showModal) {
       setTimeout(() => unMountComponent());
     }
-  }, [showModal]);
+  }, [isShown, showModal]);
 
   if (!isRendered) {
     return null;

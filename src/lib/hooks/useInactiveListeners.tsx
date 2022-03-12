@@ -44,7 +44,7 @@ const useInactiveListener = (
         }
       };
     }
-  }, [active, error, suppress, activate]);
+  }, [active, error, suppress, activate, activateConnector]);
 };
 
 export default useInactiveListener;
