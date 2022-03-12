@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { web3Config } from "./config/web3-connect-config";
 import Web3Wrapper from "./lib";
+import { web3Config } from "./sandbox/config/web3-connect-config";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useWeb3Provider } from "../../lib";
+import { useWeb3Provider } from "../../../lib";
 import Button from "./button";
 import { ConnectButtonProps } from "./interfaces";
 

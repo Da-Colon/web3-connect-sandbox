@@ -1,5 +1,5 @@
-import AppWrapper from "./components/layout/AppWrapper";
-import Connection from "./components/sandbox/Connection";
+import AppWrapper from "./sandbox/components/layout/AppWrapper";
+import Connection from "./sandbox/components/sandbox/Connection";
 
 function App() {
   return (
