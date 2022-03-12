@@ -1,6 +1,6 @@
+import { Connector, ConnectorNames } from "../hooks/useConnectors";
+import { useWeb3Provider } from "../hooks/useWeb3Provider";
 import WalletOption from "./WalletOption";
-import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
-import { Connector, ConnectorNames } from "../../../hooks/useConnectors";
 
 const WalletOptions = () => {
   const { connectors } = useWeb3Provider();

@@ -2,10 +2,10 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { NetworkConnector } from "@web3-react/network-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { useEffect, useState } from "react";
-import { Web3Config } from "../types/index.d";
 import { useWeb3React } from "@web3-react/core";
 import metamaskLogo from "../assets/images/metamask-logo.svg";
 import walletconnectLogo from "../assets/images/walletconnect-logo.svg";
+import { Web3Config } from '../types';
 export enum ConnectorNames {
   Injected = "Metamask",
   WalletConnect = "WalletConnect",

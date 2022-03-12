@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import cx from "classnames";
-import { DotsLoader, LoaderSize } from "../loaders/DotsLoader";
+import { DotsLoader, LoaderSize } from "./ButtonLoader";
 
 export interface ConnectorButtonProps {
   label: string;

@@ -1,5 +1,5 @@
 import cx from "classnames";
-import { useWeb3Provider } from "../../context/web3/hooks/useWeb3Provider";
+import { useWeb3Provider } from "../../lib";
 
 const NOT_CONNECTED = "Not Connected";
 const Container = ({ children }: { children: JSX.Element[] }) => (

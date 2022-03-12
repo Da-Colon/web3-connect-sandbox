@@ -1,8 +1,8 @@
 import { Web3ReactProvider } from "@web3-react/core";
 import { ethers } from "ethers";
 import { FC } from "react";
-import { Web3Provider } from "./hooks/useWeb3Provider";
-import type { Web3Config } from "./types/index";
+import { Web3Provider } from "../hooks/useWeb3Provider";
+import { Web3Config } from "../types";
 
 interface Web3WrapperProps {
   config: Web3Config;

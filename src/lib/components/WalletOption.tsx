@@ -1,10 +1,12 @@
 import { FC } from "react";
-import { Connector, ConnectorNames } from "../../../hooks/useConnectors";
-import { useWeb3Provider } from "../../../hooks/useWeb3Provider";
-import ConnectorButton from "../../ui/buttons/ConnectorButton";
+import { Connector, ConnectorNames } from "../hooks/useConnectors";
+import { useWeb3Provider } from "../hooks/useWeb3Provider";
+import ConnectorButton from "./ConnectorButton";
+
 interface WalletOptionProps {
   connectorOption: Connector;
 }
+
 const WalletOption: FC<WalletOptionProps> = ({ connectorOption }) => {
   const { connector, error, triedEager, activatingConnector, activateConnector, deactivate } =
     useWeb3Provider();

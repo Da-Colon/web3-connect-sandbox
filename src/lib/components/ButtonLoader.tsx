@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classnames from "classnames";
-import useLoader from "../../../hooks/useLoader";
+import useLoader from "../hooks/useLoader";
 
 export enum LoaderSize {
   "button",

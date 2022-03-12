@@ -1,7 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import React, { createContext, useContext } from "react";
+import Web3ConnectorModal from "../components/Web3ConnectorModal";
 import type { Web3Config } from "../types";
-import Web3ConnectorModal from "../components/layout/Web3ConnectorModal";
 import useConnectors from "./useConnectors";
 import { useEagerConnect } from "./useEagerConnect";
 import useInactiveListener from "./useInactiveListeners";
