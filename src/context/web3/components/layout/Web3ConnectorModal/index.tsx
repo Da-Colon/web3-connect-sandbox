@@ -9,24 +9,40 @@ interface Web3ConnectorModalProps {
 }
 
 const Web3ConnectorModal: FC<Web3ConnectorModalProps> = ({ showModal, closeWeb3Modal }) => {
-  const [show, setShow] = useState(false);
-
   const overlayRef = useRef<HTMLHeadingElement>(null);
 
+  const [isShown, setShown] = useState(false);
+  const [isRendered, setRendered] = useState(false);
+
+  const renderComponent = () => {
+    setRendered(true);
+    setTimeout(() => setShown(true), 10);
+  };
+
+  const unMountComponent = () => {
+    setShown(false);
+    setTimeout(() => setRendered(false), 150);
+  };
+
   useEffect(() => {
-    if (!show && showModal) {
-      setTimeout(() => setShow(true));
+    if (!isShown && showModal) {
+      setTimeout(() => renderComponent());
     }
-    if (show && !showModal) {
-      setTimeout(() => setShow(false));
+    if (isShown && !showModal) {
+      setTimeout(() => unMountComponent());
     }
   }, [showModal]);
+
+  if (!isRendered) {
+    return null;
+  }
+
 
   return (
     <div
       className={cx("absolute flex flex-col items-center justify-center h-full w-full bg-overlay z-10 top-0", {
-        "flex justify-end": show,
-        hidden: !show,
+        "flex justify-end": isShown,
+        'hidden': !isShown,
       })}
       onClick={(e) => {
         if (e.target === overlayRef.current) {
